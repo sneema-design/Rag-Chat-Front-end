@@ -21,7 +21,7 @@ import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
   const router = useRouter();
-  const { mutate, isPending, isError } = useSignup();
+  const { mutate} = useSignup();
   const formik = useFormik<signUpValues>({
     initialValues: {
       name: "",

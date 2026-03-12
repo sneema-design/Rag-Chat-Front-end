@@ -1,11 +1,13 @@
-import ChatForm from "@/components/ChatForm";
-import NavBar from "@/components/ui/navBar";
+import HomeHero from "@/components/HomeHero";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 export default function Home() {
   return (
-    <>
-    <NavBar/>
-     <ChatForm/>
-    </>   
+    <SidebarProvider>
+      
+
+        <HomeHero/>
+    
+    </SidebarProvider>
   );
 }
