@@ -18,11 +18,15 @@ import { Input } from "@/components/ui/input";
 import { useFormik } from "formik";
 import { loginValue } from "@/app/types/loginType";
 import { loginValidation } from "@/app/validation/login.schema";
-
+import { useLogin } from "@/app/services/auth/useAuthService";
+import {useRouter} from "next/navigation";
+import { toast } from "sonner";
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const router=useRouter()
+  const { mutate } = useLogin();
   const formik = useFormik<loginValue>({
     initialValues: {
       email: "",
@@ -31,8 +35,22 @@ export function LoginForm({
     validationSchema: loginValidation,
     validateOnChange: true,
     onSubmit: (values, { resetForm }) => {
-      console.log("loginValues:", values);
+      try {
+        mutate(values, {
+        onSuccess: (data) => {
+          const userId = data.id;
+          if (userId) {
+            localStorage.setItem("userId", userId.toString());
+          }
+        },
+      });
+      toast.success("Login SuccessFully!!")
+      router.push("/")
+
       resetForm();
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
   return (
@@ -57,9 +75,11 @@ export function LoginForm({
                   onBlur={formik.handleBlur}
                   value={formik.values.email}
                 />
-                  {formik.touched.email && formik.errors.email && (
-                <p className="text-sm text-red-500">{formik.errors.password}</p>
-              )}
+                {formik.touched.email && formik.errors.email && (
+                  <p className="text-sm text-red-500">
+                    {formik.errors.password}
+                  </p>
+                )}
               </Field>
               <Field>
                 <div className="flex items-center">
@@ -72,9 +92,11 @@ export function LoginForm({
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                  {formik.touched.password && formik.errors.password && (
-                <p className="text-sm text-red-500">{formik.errors.password}</p>
-              )}
+                {formik.touched.password && formik.errors.password && (
+                  <p className="text-sm text-red-500">
+                    {formik.errors.password}
+                  </p>
+                )}
               </Field>
               <Field>
                 <Button type="submit">Login</Button>

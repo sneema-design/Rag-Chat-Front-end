@@ -37,15 +37,11 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
           onSuccess: (data) => {
             const userId = data.id;
             if (userId) {
-              const existingId = localStorage.getItem("userId");
-
-              if (!existingId) {
-                localStorage.setItem("userId", userId.toString());
-              }
+              localStorage.setItem("userId", userId.toString());
             }
           },
         });
-        router.push("/")
+        router.push("/");
         resetForm();
       } catch (error) {
         console.log(error);
