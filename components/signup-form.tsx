@@ -26,6 +26,7 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
       password: "",
     },
     validationSchema: signUpValidation,
+    validateOnChange: true,
     onSubmit: (values, { resetForm }) => {
       console.log("signupform:", values);
       resetForm();
