@@ -17,6 +17,7 @@ import {
 
 import { SearchForm } from "@/components/search-form";
 import { useGetAllChat } from "@/app/services/allChat/useAllChatService";
+import { CreateChatDialog } from "./CreateChatDailog";
 
 type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
   setChatId: (id: number) => void;
@@ -28,7 +29,7 @@ export function AppSidebar({ setChatId, ...props }: AppSidebarProps) {
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <SearchForm />
+        <CreateChatDialog setChatId={setChatId} />
       </SidebarHeader>
 
       <SidebarContent>
@@ -37,33 +38,25 @@ export function AppSidebar({ setChatId, ...props }: AppSidebarProps) {
 
           <SidebarGroupContent>
             <SidebarMenu>
-
               {isPending && (
                 <SidebarMenuItem>
-                  <SidebarMenuButton>
-                    Loading chats...
-                  </SidebarMenuButton>
+                  <SidebarMenuButton>Loading chats...</SidebarMenuButton>
                 </SidebarMenuItem>
               )}
 
               {isError && (
                 <SidebarMenuItem>
-                  <SidebarMenuButton>
-                    Error loading chats
-                  </SidebarMenuButton>
+                  <SidebarMenuButton>Error loading chats</SidebarMenuButton>
                 </SidebarMenuItem>
               )}
 
               {data?.map((chat) => (
                 <SidebarMenuItem key={chat.id}>
-                  <SidebarMenuButton
-                    onClick={() => setChatId(chat.id)}
-                  >
+                  <SidebarMenuButton onClick={() => setChatId(chat.id)}>
                     {chat.title}
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
-
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
