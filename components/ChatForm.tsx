@@ -6,8 +6,10 @@ import { Button } from "./ui/button";
 import { chatValidationSchema } from "@/app/validation/chat.schema";
 import { useAskQuestion } from "@/app/services/chat/useChatService";
 import { useState } from "react";
-
-export default function ChatForm() {
+type props={
+  chatId:number
+}
+export default function ChatForm({chatId}:props) {
   const [answer, setAnswer] = useState("");
   const { mutate, isLoading, isError } = useAskQuestion();
 
@@ -33,6 +35,7 @@ export default function ChatForm() {
 
   return (
     <>
+      <h1>{chatId}</h1>
       <form onSubmit={formik.handleSubmit}>
         <Input
           id="query"
