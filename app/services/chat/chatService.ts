@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const askQuestion = async (chatData: chatValues): Promise<chatResponse> => {
   try {
-    const res = await api.post("/", chatData);
+    const res = await api.post("/ask", chatData);
     return res.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

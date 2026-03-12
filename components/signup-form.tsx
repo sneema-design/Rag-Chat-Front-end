@@ -1,4 +1,5 @@
 "use client";
+import { useSignup } from "@/app/services/auth/useAuthService";
 import type { signUpValues } from "@/app/types/signUpType";
 import { signUpValidation } from "@/app/validation/signup.schema";
 import { Button } from "@/components/ui/button";
@@ -17,8 +18,10 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { useFormik } from "formik";
-
+import { useRouter } from "next/navigation";
 export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
+  const router = useRouter();
+  const { mutate, isPending, isError } = useSignup();
   const formik = useFormik<signUpValues>({
     initialValues: {
       name: "",
@@ -28,8 +31,25 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
     validationSchema: signUpValidation,
     validateOnChange: true,
     onSubmit: (values, { resetForm }) => {
-      console.log("signupform:", values);
-      resetForm();
+      try {
+        console.log("signupform:", values);
+        mutate(values, {
+          onSuccess: (data) => {
+            const userId = data.id;
+            if (userId) {
+              const existingId = localStorage.getItem("userId");
+
+              if (!existingId) {
+                localStorage.setItem("userId", userId.toString());
+              }
+            }
+          },
+        });
+        router.push("/")
+        resetForm();
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
   return (

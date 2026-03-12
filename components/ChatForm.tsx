@@ -11,7 +11,7 @@ export default function ChatForm() {
   const [answer, setAnswer] = useState("");
   const { mutate, isLoading, isError } = useAskQuestion();
 
-  const [chats, setChats] = useState([{ user: "hi", bot: "hello" }]);
+  const [chats, setChats] = useState([{ user: "", bot: "" }]);
 
   const formik = useFormik<chatValues>({
     initialValues: { query: "" },
