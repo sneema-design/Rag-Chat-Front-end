@@ -8,7 +8,6 @@ import { ROUTES } from "@/app/constant/ROUTES";
 export default function NavBar() {
   const navItem = [{ label: "Login", href: ROUTES.LOGIN }];
   const [userId, setUserId] = useState<string | null>(null);
-  const queryClient = useQueryClient();
 
   useEffect(() => {
     const id = localStorage.getItem("userId");

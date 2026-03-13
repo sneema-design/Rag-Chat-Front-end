@@ -43,10 +43,10 @@ export default function LoginForm({
           onSuccess: (data) => {
             const userId = data.id;
             localStorage.setItem("userId", userId.toString());
+            toast.success("Login SuccessFully!!");
+            router.push("/");
           },
         });
-        toast.success("Login SuccessFully!!");
-        router.push("/");
 
         resetForm();
       } catch (error) {
@@ -80,8 +80,7 @@ export default function LoginForm({
                 />
               </Field>
               <Field>
-                <div className="flex items-center">
-                </div>
+                <div className="flex items-center"></div>
                 <FormInput
                   id="password"
                   label="Password"
