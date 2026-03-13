@@ -8,8 +8,9 @@ import { chatValidationSchema } from "@/app/validation/chat.schema";
 import { useAskQuestion } from "@/app/services/chat/useChatService";
 import { useGetChatById } from "@/app/services/allChat/useAllChatService";
 import { useCreateMessage } from "@/app/services/message/useMessageService";
-import { Send, Loader2, AlertCircle, MessageCircle } from "lucide-react";
+import { Send, Loader2, AlertCircle, MessageCircle, Divide } from "lucide-react";
 import { useEffect, useRef } from "react";
+import { CreateChatDialog } from "./CreateChatDailog";
 
 type Props = {
   chatId: number;
@@ -45,7 +46,8 @@ export default function ChatForm({ chatId }: Props) {
   });
 
   return (
-    <div className="flex flex-col h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
+    <>
+    {chatId?<div className="flex flex-col h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
       {/* Header */}
       <div className="bg-white border-b border-slate-200 px-6 py-5 shadow-sm sticky top-0 z-10">
         <div className="flex items-center gap-3">
@@ -54,7 +56,7 @@ export default function ChatForm({ chatId }: Props) {
           </div>
           <div>
             <h1 className="text-lg font-semibold text-slate-900">
-              Chat #{chatId}
+              {data?.title}
             </h1>
             <p className="text-xs text-slate-500 mt-0.5">Active conversation</p>
           </div>
@@ -95,6 +97,7 @@ export default function ChatForm({ chatId }: Props) {
         {renderError && (
           <div className="flex items-start gap-3 p-4 bg-red-50 border border-red-200 rounded-lg mx-auto max-w-md">
             <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+            
             <p className="text-red-700 text-sm font-medium">
               Failed to load chat messages.
             </p>
@@ -180,6 +183,10 @@ export default function ChatForm({ chatId }: Props) {
           </Button>
         </form>
       </div>
-    </div>
+    </div>:<div>
+      welcome to the Rag please select the Chat or create a new one
+      </div>}
+    
+    </>
   );
 }

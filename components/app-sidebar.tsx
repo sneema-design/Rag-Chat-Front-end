@@ -24,7 +24,7 @@ type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
 };
 
 export function AppSidebar({ setChatId, ...props }: AppSidebarProps) {
-  const { data, isPending, isError } = useGetAllChat();
+  const { data, isPending, isError,error } = useGetAllChat();
 
   return (
     <Sidebar {...props}>
@@ -46,7 +46,9 @@ export function AppSidebar({ setChatId, ...props }: AppSidebarProps) {
 
               {isError && (
                 <SidebarMenuItem>
-                  <SidebarMenuButton>Error loading chats</SidebarMenuButton>
+                  <SidebarMenuButton>
+                    {error?.message}
+                  </SidebarMenuButton>
                 </SidebarMenuItem>
               )}
 
