@@ -15,20 +15,23 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Field, FieldGroup } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useFormik } from "formik";
 import { useCreateChat } from "@/app/services/allChat/useAllChatService";
 import { Plus, Sparkles } from "lucide-react";
 import { FormInput } from "./ui/FormInput";
 
-type props = {
+type Props = {
   setChatId: (id: number) => void;
 };
 
-export function CreateChatDialog({ setChatId }: props) {
+export function CreateChatDialog({ setChatId }: Props) {
   const [open, setOpen] = useState(false);
-  const Id = Number(localStorage.getItem("userId"));
+
+  const Id =
+    typeof window !== "undefined"
+      ? Number(localStorage.getItem("userId"))
+      : 0;
+
   const { mutate } = useCreateChat();
 
   const formik = useFormik<newChatValue>({
@@ -51,15 +54,14 @@ export function CreateChatDialog({ setChatId }: props) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button
-          variant="default"
-          className="gap-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md hover:shadow-lg transition-all"
-        >
-          <Plus className="w-4 h-4" />
-          New Chat
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger
+        render={
+          <Button className="gap-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md">
+            <Plus className="w-4 h-4" />
+            New Chat
+          </Button>
+        }
+      />
 
       <DialogContent className="sm:max-w-md bg-white rounded-xl shadow-xl border border-slate-200">
         <form onSubmit={formik.handleSubmit}>
@@ -79,13 +81,6 @@ export function CreateChatDialog({ setChatId }: props) {
 
           <FieldGroup className="space-y-4 py-6">
             <Field>
-              <Label
-                htmlFor="title"
-                className="text-sm font-medium text-slate-700 mb-2 block"
-              >
-                Chat Title
-              </Label>
-
               <FormInput
                 id="title"
                 label="Chat Title"
@@ -100,15 +95,13 @@ export function CreateChatDialog({ setChatId }: props) {
           </FieldGroup>
 
           <DialogFooter className="flex gap-3 pt-4 border-t border-slate-200">
-            <DialogClose asChild>
-              <Button
-                variant="outline"
-                type="button"
-                className="rounded-lg border-slate-300 text-slate-700 hover:bg-slate-100 transition-colors"
-              >
-                Cancel
-              </Button>
-            </DialogClose>
+            <DialogClose
+              render={
+                <Button variant="outline" type="button">
+                  Cancel
+                </Button>
+              }
+            />
 
             <Button
               type="submit"

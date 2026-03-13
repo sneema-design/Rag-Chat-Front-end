@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-  ],
+, "app/utils/errorUtils.ts"  ],
   "exclude": ["node_modules"]
 }

@@ -24,7 +24,7 @@ type Props = {
 };
 
 export default function ChatForm({ chatId }: Props) {
-  const { mutate, isLoading, isError } = useAskQuestion();
+  const { mutate, isPending:ask, isError } = useAskQuestion();
   const { data, isPending, isError: renderError } = useGetChatById(chatId);
   const { mutate: saveChat } = useCreateMessage();
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -177,7 +177,7 @@ export default function ChatForm({ chatId }: Props) {
                   touched={formik.touched.query}
                   error={formik.errors.query}
                   rightElement={
-                    isLoading ? (
+                    ask ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
                     ) : (
                       <Send className="w-4 h-4" />
@@ -188,10 +188,10 @@ export default function ChatForm({ chatId }: Props) {
 
               <Button
                 type="submit"
-                disabled={isLoading || !formik.values.query.trim()}
+                disabled={ask || !formik.values.query.trim()}
                 className="rounded-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:opacity-50 disabled:cursor-not-allowed px-5 py-2.5 transition-all shadow-md hover:shadow-lg flex-shrink-0"
               >
-                {isLoading ? (
+                {ask ? (
                   <Loader2 className="w-5 h-5 animate-spin" />
                 ) : (
                   <Send className="w-5 h-5" />

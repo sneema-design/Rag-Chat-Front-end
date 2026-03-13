@@ -15,7 +15,6 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 
-import { SearchForm } from "@/components/search-form";
 import { useGetAllChat } from "@/app/services/allChat/useAllChatService";
 import { CreateChatDialog } from "./CreateChatDailog";
 
