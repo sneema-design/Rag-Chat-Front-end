@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import { ROUTES } from "@/app/constant/ROUTES";
 
 export default function NavBar() {
-  const navItem = [{ label: "Login", href: "/login" }];
+  const navItem = [{ label: "Login", href: ROUTES.LOGIN }];
   const [userId, setUserId] = useState<string | null>(null);
   const queryClient = useQueryClient();
 

@@ -23,6 +23,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Link from "next/link";
 import { FormInput } from "./ui/FormInput";
+import { ROUTES } from "@/app/constant/ROUTES";
 export default function LoginForm({
   className,
   ...props
@@ -97,7 +98,7 @@ export default function LoginForm({
                 <Button type="submit">Login</Button>
                 <FieldDescription className="text-center">
                   Don&apos;t have an account?{" "}
-                  <Link href="/signup">Sign up</Link>
+                  <Link href={ROUTES.SIGNUP}>Sign up</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>
