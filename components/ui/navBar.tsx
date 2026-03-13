@@ -1,27 +1,26 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { useEffect, useState } from "react"
-import { useQueryClient } from "@tanstack/react-query"
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function NavBar() {
-  const navItem = [{ label: "Login", href: "/login" }]
-  const [userId, setUserId] = useState<string | null>(null)
-  const queryClient = useQueryClient()
+  const navItem = [{ label: "Login", href: "/login" }];
+  const [userId, setUserId] = useState<string | null>(null);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
-    const id = localStorage.getItem("userId")
-    setUserId(id)
-  }, [])
- const handleOnclick=()=>{
-  localStorage.clear()
+    const id = localStorage.getItem("userId");
+    setUserId(id);
+  }, []);
+  const handleOnclick = () => {
+    localStorage.removeItemm("userId");
+    setUserId("");
     // queryClient.clear()
-
- }
+  };
   return (
     <nav className="w-full bg-gray-900 text-white shadow-md">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
-        
         <h1 className="text-xl font-bold tracking-wide">RAG</h1>
 
         <div className="flex gap-6">
@@ -31,21 +30,21 @@ export default function NavBar() {
                 ? userId
                   ? "Logout"
                   : "Login"
-                : item.label
+                : item.label;
 
             return (
-              <Link onClick={handleOnclick}
+              <Link
+                onClick={handleOnclick}
                 key={key}
                 href={item.href}
                 className="hover:text-blue-400 transition-colors duration-200"
               >
                 {label}
               </Link>
-            )
+            );
           })}
         </div>
-
       </div>
     </nav>
-  )
+  );
 }
