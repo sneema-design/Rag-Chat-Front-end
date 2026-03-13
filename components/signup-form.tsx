@@ -20,6 +20,7 @@ import { useFormik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormInput } from "./ui/FormInput";
+import { ROUTES } from "@/app/constant/ROUTES";
 export default function SignupForm({
   ...props
 }: React.ComponentProps<typeof Card>) {
@@ -116,7 +117,7 @@ export default function SignupForm({
               <Field>
                 <Button type="submit">Create Account</Button>
                 <FieldDescription className="px-6 text-center">
-                  Already have an account? <Link href="/login">Login</Link>
+                  Already have an account? <Link href={ROUTES.LOGIN}>Login</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>
