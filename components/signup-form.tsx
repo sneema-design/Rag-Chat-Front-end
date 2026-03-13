@@ -64,7 +64,6 @@ export default function SignupForm({
         <form onSubmit={formik.handleSubmit}>
           <FieldGroup>
             <Field>
-              <FieldLabel htmlFor="name">Full Name</FieldLabel>
               <FormInput
                 id="name"
                 label="Full Name"
@@ -78,7 +77,6 @@ export default function SignupForm({
               />
             </Field>
             <Field>
-              <FieldLabel htmlFor="email">Email</FieldLabel>
               <FormInput
                 id="email"
                 label="Email"
@@ -96,7 +94,6 @@ export default function SignupForm({
               </FieldDescription>
             </Field>
             <Field>
-              <FieldLabel htmlFor="password">Password</FieldLabel>
               <FormInput
                 id="password"
                 label="Password"
