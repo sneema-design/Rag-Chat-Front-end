@@ -19,14 +19,15 @@ import { useFormik } from "formik";
 import { loginValue } from "@/app/types/loginType";
 import { loginValidation } from "@/app/validation/login.schema";
 import { useLogin } from "@/app/services/auth/useAuthService";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Link from "next/link";
-export function LoginForm({
+import { FormInput } from "./ui/FormInput";
+export default function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const router=useRouter()
+  const router = useRouter();
   const { mutate } = useLogin();
   const formik = useFormik<loginValue>({
     initialValues: {
@@ -38,16 +39,15 @@ export function LoginForm({
     onSubmit: (values, { resetForm }) => {
       try {
         mutate(values, {
-        onSuccess: (data) => {
-          const userId = data.id;
+          onSuccess: (data) => {
+            const userId = data.id;
             localStorage.setItem("userId", userId.toString());
-        
-        },
-      });
-      toast.success("Login SuccessFully!!")
-      router.push("/")
+          },
+        });
+        toast.success("Login SuccessFully!!");
+        router.push("/");
 
-      resetForm();
+        resetForm();
       } catch (error) {
         console.log(error);
       }
@@ -66,42 +66,38 @@ export function LoginForm({
           <form onSubmit={formik.handleSubmit}>
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor="email">Email</FieldLabel>
-                <Input
+                <FormInput
                   id="email"
+                  label="Email"
                   type="email"
                   placeholder="m@example.com"
+                  value={formik.values.email}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.values.email}
+                  touched={formik.touched.email}
+                  error={formik.errors.email}
                 />
-                {formik.touched.email && formik.errors.email && (
-                  <p className="text-sm text-red-500">
-                    {formik.errors.password}
-                  </p>
-                )}
               </Field>
               <Field>
                 <div className="flex items-center">
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
                 </div>
-                <Input
+                <FormInput
                   id="password"
+                  label="Password"
                   type="password"
+                  placeholder="Enter your password"
                   value={formik.values.password}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
+                  touched={formik.touched.password}
+                  error={formik.errors.password}
                 />
-                {formik.touched.password && formik.errors.password && (
-                  <p className="text-sm text-red-500">
-                    {formik.errors.password}
-                  </p>
-                )}
               </Field>
               <Field>
                 <Button type="submit">Login</Button>
                 <FieldDescription className="text-center">
-                  Don&apos;t have an account? <Link href="/signup">Sign up</Link>
+                  Don&apos;t have an account?{" "}
+                  <Link href="/signup">Sign up</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>

@@ -20,6 +20,7 @@ import { Label } from "@/components/ui/label";
 import { useFormik } from "formik";
 import { useCreateChat } from "@/app/services/allChat/useAllChatService";
 import { Plus, Sparkles } from "lucide-react";
+import { FormInput } from "./ui/FormInput";
 
 type props = {
   setChatId: (id: number) => void;
@@ -85,23 +86,16 @@ export function CreateChatDialog({ setChatId }: props) {
                 Chat Title
               </Label>
 
-              <Input
+              <FormInput
                 id="title"
-                name="title"
+                label="Chat Title"
                 placeholder="e.g., Project Discussion, Quick Questions..."
                 value={formik.values.title}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className="rounded-lg border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-slate-50 hover:bg-white transition-colors px-4 py-2.5 text-sm"
+                touched={formik.touched.title}
+                error={formik.errors.title}
               />
-
-              {formik.touched.title && formik.errors.title && (
-                <div className="flex items-center gap-2 mt-2 p-2 bg-red-50 rounded-lg border border-red-200">
-                  <p className="text-red-600 text-sm font-medium">
-                    {formik.errors.title}
-                  </p>
-                </div>
-              )}
             </Field>
           </FieldGroup>
 

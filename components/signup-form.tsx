@@ -16,13 +16,15 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
 import { useFormik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
+import { FormInput } from "./ui/FormInput";
+export default function SignupForm({
+  ...props
+}: React.ComponentProps<typeof Card>) {
   const router = useRouter();
-  const { mutate} = useSignup();
+  const { mutate } = useSignup();
   const formik = useFormik<signUpValues>({
     initialValues: {
       name: "",
@@ -62,31 +64,31 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
           <FieldGroup>
             <Field>
               <FieldLabel htmlFor="name">Full Name</FieldLabel>
-              <Input
+              <FormInput
                 id="name"
+                label="Full Name"
                 type="text"
                 placeholder="John Doe"
                 value={formik.values.name}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
+                touched={formik.touched.name}
+                error={formik.errors.name}
               />
-              {formik.touched.name && formik.errors.name && (
-                <p className="text-sm text-red-500">{formik.errors.password}</p>
-              )}
             </Field>
             <Field>
               <FieldLabel htmlFor="email">Email</FieldLabel>
-              <Input
+              <FormInput
                 id="email"
+                label="Email"
                 type="email"
                 placeholder="m@example.com"
                 value={formik.values.email}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
+                touched={formik.touched.email}
+                error={formik.errors.email}
               />
-              {formik.touched.email && formik.errors.email && (
-                <p className="text-sm text-red-500">{formik.errors.password}</p>
-              )}
               <FieldDescription>
                 We&apos;ll use this to contact you. We will not share your email
                 with anyone else.
@@ -94,16 +96,17 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
             </Field>
             <Field>
               <FieldLabel htmlFor="password">Password</FieldLabel>
-              <Input
+              <FormInput
                 id="password"
+                label="Password"
                 type="password"
+                placeholder="Enter your password"
                 value={formik.values.password}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
+                touched={formik.touched.password}
+                error={formik.errors.password}
               />
-              {formik.touched.password && formik.errors.password && (
-                <p className="text-sm text-red-500">{formik.errors.password}</p>
-              )}
               <FieldDescription>
                 Must be at least 8 characters long.
               </FieldDescription>
